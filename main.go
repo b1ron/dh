@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/b1ron/key-exchange/totient"
+	"github.com/b1ron/dh/totient"
 )
 
 // https://math.stackexchange.com/questions/124408/finding-a-primitive-root-of-a-prime-number
