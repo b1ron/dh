@@ -13,14 +13,14 @@ import (
 func main() {
 	// primitive root modulo 7 is 3
 	seen := map[int]bool{}
-	g := 3
+	primitiveRoot := 3
 	for i := 1; i < totient.Phi(7); i++ {
-		m := totient.Pow(g, i) % 7
-		if ok := seen[m]; ok {
+		g := totient.Pow(primitiveRoot, i) % 7
+		if ok := seen[g]; ok {
 			break
 		}
-		seen[m] = true
+		seen[g] = true
 	}
 	// 3, 4, 5, 6, 2, 1
-	fmt.Println(g)
+	fmt.Println(primitiveRoot)
 }
