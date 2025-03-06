@@ -31,6 +31,7 @@ func ProbalisticPrimeTest(n int) bool {
 	s := 0
 	x := 0
 	y := 0
+
 	for d%2 == 0 {
 		d /= 2
 		s++
