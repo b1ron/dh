@@ -72,9 +72,9 @@ func ProbalisticPrimeTest(n int) bool {
 }
 
 func GeneratePrime(bitsize int) int {
-	for prime := range rand.Intn(bitsize) {
-		if ProbalisticPrimeTest(prime) {
-			return prime
+	for n := range rand.Intn(bitsize) {
+		if ProbalisticPrimeTest(n) {
+			return n
 		}
 	}
 	return 0
