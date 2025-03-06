@@ -31,17 +31,14 @@ func ProbalisticPrimeTest(n int) bool {
 	s := 0
 	x := 0
 	y := 0
-	for range n - 1 {
-		s = Pow(2, s)
-		if s*d == n-1 {
-			a = s
-			break
-		}
+	for d%2 == 0 {
+		d /= 2
+		s++
 	}
 
 	// [2, min(n − 2, ⌊2(ln n)^2⌋)]
 	bound := math.Min(float64(n-2), math.Floor(2*math.Pow(math.Log(float64(n)), 2)))
-	for range int(bound) {
+	for a = range int(bound) {
 		// compute a^d mod n
 		x = Pow(a, d) % n
 		// handle later
