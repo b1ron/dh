@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	mathutil "github.com/b1ron/dh/math"
+	"github.com/b1ron/dh/mathutil"
 	"github.com/b1ron/dh/totient"
 )
 

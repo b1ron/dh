@@ -1,7 +1,7 @@
 // Package totient provides Euler's totient function.
 package totient
 
-import mathutil "github.com/b1ron/dh/math"
+import "github.com/b1ron/dh/mathutil"
 
 // Phi TODO: implement Euler's product formula to compute phi.
 func Phi(n int) int {
