@@ -15,6 +15,7 @@ func probalisticPrimeTest(n int) bool {
 	d := 3
 	s := 0
 	x := 0
+	y := 0
 	for {
 		s = mathutil.Pow(2, s)
 		if s*d == n-1 {
@@ -28,9 +29,21 @@ func probalisticPrimeTest(n int) bool {
 	for range int(bound) {
 		// compute a^d mod n
 		x = mathutil.Pow(a, d) % n
+		// handle later
 		if x == 1 || x == n-1 {
 			break
 		}
+		for range s {
+			y = mathutil.Pow(x, 2) % n
+		}
+		if y == 1 && x != 1 && x != n-1 {
+			return false
+		} else {
+			x = y
+			break
+		}
 	}
-	return false
+
+	// if none of the bases aa detect compositeness, we assume n is probably prime.
+	return y == 1
 }
