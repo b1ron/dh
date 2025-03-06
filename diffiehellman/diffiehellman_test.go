@@ -1,4 +1,4 @@
-package dhke
+package diffiehellman
 
 import (
 	"testing"
