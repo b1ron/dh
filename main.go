@@ -16,7 +16,7 @@ func main() {
 	m := map[int]struct{}{}
 	primitiveRoot := 3
 	for i := 1; i < totient.Phi(7); i++ {
-		g := mathutil.Pow(primitiveRoot, i, 1000) % 7
+		g := mathutil.Pow(primitiveRoot, i, 7)
 		if _, ok := m[g]; ok {
 			break
 		}
