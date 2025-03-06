@@ -16,7 +16,7 @@ func probalisticPrimeTest(n int) bool {
 	s := 0
 	x := 0
 	y := 0
-	for {
+	for range n - 1 {
 		s = mathutil.Pow(2, s)
 		if s*d == n-1 {
 			a = s
