@@ -24,6 +24,8 @@ func TestProbalisticPrimeTest(t *testing.T) {
 		{999, false},
 		{1000, false},
 		{1001, false},
+		{GeneratePrime(2048), true},
+		{GeneratePrime(4096), true},
 	}
 	for _, test := range tests {
 		if got := ProbalisticPrimeTest(test.n); got != test.want {
