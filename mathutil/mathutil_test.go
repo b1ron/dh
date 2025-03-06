@@ -2,7 +2,7 @@ package mathutil
 
 import "testing"
 
-func TestProbalisticPrimeTest(t *testing.T) {
+func TestProbabilisticPrimeTest(t *testing.T) {
 	tests := []struct {
 		n    int
 		want bool
@@ -28,8 +28,8 @@ func TestProbalisticPrimeTest(t *testing.T) {
 		{GeneratePrime(4096), true},
 	}
 	for _, test := range tests {
-		if got := ProbalisticPrimeTest(test.n); got != test.want {
-			t.Errorf("ProbalisticPrimeTest(%d) = %t, want %t", test.n, got, test.want)
+		if got := ProbabilisticPrimeTest(test.n); got != test.want {
+			t.Errorf("ProbabilisticPrimeTest(%d) = %t, want %t", test.n, got, test.want)
 		}
 	}
 }

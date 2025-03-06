@@ -26,10 +26,10 @@ func GCD(a, b int) int {
 	return GCD(b%a, a)
 }
 
-// ProbalisticPrimeTest uses the Miller–Rabin algorithm to test if n is prime.
+// ProbabilisticPrimeTest uses the Miller–Rabin algorithm to test if n is prime.
 // https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
 // It runs in polynomial time.
-func ProbalisticPrimeTest(n int) bool {
+func ProbabilisticPrimeTest(n int) bool {
 	if n < 2 {
 		return false
 	}
@@ -73,7 +73,7 @@ func ProbalisticPrimeTest(n int) bool {
 
 func GeneratePrime(bitsize int) int {
 	for n := range rand.Intn(bitsize) {
-		if ProbalisticPrimeTest(n) {
+		if ProbabilisticPrimeTest(n) {
 			return n
 		}
 	}
