@@ -27,7 +27,7 @@ func TestProbalisticPrimeTest(t *testing.T) {
 	}
 	for _, test := range tests {
 		if got := ProbalisticPrimeTest(test.n); got != test.want {
-			t.Errorf("probalisticPrimeTest(%d) = %t, want %t", test.n, got, test.want)
+			t.Errorf("ProbalisticPrimeTest(%d) = %t, want %t", test.n, got, test.want)
 		}
 	}
 }
