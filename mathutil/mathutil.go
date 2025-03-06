@@ -9,3 +9,10 @@ func Pow(x, y int) int {
 	}
 	return res
 }
+
+func GCD(a, b int) int {
+	if a == 0 {
+		return b
+	}
+	return GCD(b%a, a)
+}
