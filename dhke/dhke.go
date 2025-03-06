@@ -44,6 +44,6 @@ func probalisticPrimeTest(n int) bool {
 		}
 	}
 
-	// if none of the bases aa detect compositeness, we assume n is probably prime.
+	// if none of the bases a detect compositeness, we assume n is probably prime.
 	return y == 1
 }
