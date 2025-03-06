@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/b1ron/dh/mathutil"
 	"github.com/b1ron/dh/totient"
 )
 
@@ -15,7 +16,7 @@ func main() {
 	seen := map[int]bool{}
 	primitiveRoot := 3
 	for i := 1; i < totient.Phi(7); i++ {
-		g := totient.Pow(primitiveRoot, i) % 7
+		g := mathutil.Pow(primitiveRoot, i) % 7
 		if ok := seen[g]; ok {
 			break
 		}

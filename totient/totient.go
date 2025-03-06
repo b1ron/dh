@@ -12,14 +12,6 @@ func Phi(n int) int {
 	return res
 }
 
-func Pow(x, y int) int {
-	res := 1
-	for range y {
-		res *= x
-	}
-	return res
-}
-
 func gcd(a, b int) int {
 	if a == 0 {
 		return b
