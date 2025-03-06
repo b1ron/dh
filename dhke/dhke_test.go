@@ -1,6 +1,10 @@
 package dhke
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/b1ron/dh/mathutil"
+)
 
 func TestProbalisticPrimeTest(t *testing.T) {
 	tests := []struct {
@@ -16,7 +20,7 @@ func TestProbalisticPrimeTest(t *testing.T) {
 		{997, true},
 	}
 	for _, test := range tests {
-		if got := probalisticPrimeTest(test.n); got != test.want {
+		if got := mathutil.ProbalisticPrimeTest(test.n); got != test.want {
 			t.Errorf("probalisticPrimeTest(%d) = %t, want %t", test.n, got, test.want)
 		}
 	}
