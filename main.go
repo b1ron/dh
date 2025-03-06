@@ -13,14 +13,14 @@ import (
 // g^k mod n produces all the numbers relatively prime to n before repeating, for k = 1, 2, 3, ..., φ(n), where φ is Euler's totient function.
 func main() {
 	// primitive root modulo 7 is 3
-	seen := map[int]bool{}
+	m := map[int]struct{}{}
 	primitiveRoot := 3
 	for i := 1; i < totient.Phi(7); i++ {
 		g := mathutil.Pow(primitiveRoot, i) % 7
-		if ok := seen[g]; ok {
+		if _, ok := m[g]; ok {
 			break
 		}
-		seen[g] = true
+		m[g] = struct{}{}
 	}
 	// 3, 4, 5, 6, 2, 1
 	fmt.Println(primitiveRoot)
