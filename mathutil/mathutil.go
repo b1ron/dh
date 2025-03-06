@@ -57,7 +57,7 @@ func ProbalisticPrimeTest(n int) bool {
 			continue
 		}
 		for range s {
-			x = Pow(x, 2, n) % n
+			x = Pow(x, 2, n)
 			if x == n-1 {
 				break
 			}
