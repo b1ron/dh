@@ -17,7 +17,6 @@ func main() {
 	primitiveRoot := 3
 	for i := 1; i < totient.Phi(7); i++ {
 		g := mathutil.Pow(primitiveRoot, i, 7)
-		fmt.Println(g)
 		if seen[g] {
 			break
 		}
