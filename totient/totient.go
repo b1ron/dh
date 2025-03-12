@@ -3,6 +3,7 @@ package totient
 
 import "github.com/b1ron/dh/mathutil"
 
+// https://en.wikipedia.org/wiki/Euler%27s_totient_function
 // Phi TODO: implement Euler's product formula to compute phi.
 func Phi(n int) int {
 	res := 1
