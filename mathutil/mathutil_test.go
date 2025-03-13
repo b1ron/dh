@@ -34,6 +34,6 @@ func TestProbabilisticPrimeTest(t *testing.T) {
 
 func TestBigInt(t *testing.T) {
 	i := bigInt{}
-	i.data = [numInts]uint64{}
+	i.data = [numInts]uint32{}
 	t.Log(i.data)
 }

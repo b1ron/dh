@@ -5,12 +5,14 @@ import (
 	"math/rand"
 )
 
+const maxUint32 = 1<<32 - 1
+
 const bitsize = 2048
-const numInts = bitsize / 64
+const numInts = bitsize / 32
 
 // bigInt is a big integer type.
 type bigInt struct {
-	data [numInts]uint64
+	data [numInts]uint32
 }
 
 // Pow computes x^y using modular exponentiation.
@@ -25,6 +27,26 @@ func Pow(x, y, mod int) int {
 		y /= 2
 	}
 	return res
+}
+
+// Pow computes x^y using modular exponentiation on a *bigInt.
+func (b *bigInt) Pow(y *bigInt, mod uint32) *bigInt {
+	upconvert := [numInts]uint64{}
+	for i, x := range b.data {
+		var res uint32 = 1
+		x = x % mod
+		for y.data[i] > uint32(0) {
+			if y.data[i]%2 == 1 {
+				if res*x > maxUint32 {
+					upconvert[i] = uint64(res*x) % uint64(mod)
+				} else {
+					res = (res * x) % mod
+				}
+			}
+		}
+	}
+	_ = upconvert
+	return nil
 }
 
 func GCD(a, b int) int {
@@ -82,7 +104,7 @@ func ProbabilisticPrimeTest(n int) bool {
 func GeneratePrime(bitsize int) *bigInt { return nil }
 
 func _() {
-	// LSB refers to the least significant 64 bits, an element of data.
+	// LSB refers to the least significant 32 bits, an element of data.
 	// if LSB is 1, then it is prime
 	// if LSB is 0, then it is composite
 }
