@@ -12,6 +12,10 @@ func TestPhi(t *testing.T) {
 		{4, 2},
 		{5, 4},
 		{6, 2},
+		{7, 6},
+		{8, 4},
+		{9, 6},
+		{10, 4},
 	}
 	for _, test := range tests {
 		if got := Phi(test.n); got != test.want {
