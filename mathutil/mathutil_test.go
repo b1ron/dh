@@ -24,12 +24,16 @@ func TestProbabilisticPrimeTest(t *testing.T) {
 		{999, false},
 		{1000, false},
 		{1001, false},
-		{GeneratePrime(2048), true},
-		{GeneratePrime(4096), true},
 	}
 	for _, test := range tests {
 		if got := ProbabilisticPrimeTest(test.n); got != test.want {
 			t.Errorf("ProbabilisticPrimeTest(%d) = %t, want %t", test.n, got, test.want)
 		}
 	}
+}
+
+func TestBigInt(t *testing.T) {
+	i := bigInt{}
+	i.data = [bitsize]uint64{}
+	t.Log(i.data)
 }

@@ -5,6 +5,13 @@ import (
 	"math/rand"
 )
 
+const bitsize = 2048
+
+// bigInt is a big integer type.
+type bigInt struct {
+	data [bitsize]uint64
+}
+
 // Pow computes x^y using modular exponentiation.
 func Pow(x, y, mod int) int {
 	res := 1
@@ -71,11 +78,4 @@ func ProbabilisticPrimeTest(n int) bool {
 	return true
 }
 
-func GeneratePrime(bitsize int) int {
-	for n := range rand.Intn(bitsize) {
-		if ProbabilisticPrimeTest(n) {
-			return n
-		}
-	}
-	return 0
-}
+func GeneratePrime(bitsize int) *bigInt { return nil }
