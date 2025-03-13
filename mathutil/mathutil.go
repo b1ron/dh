@@ -80,3 +80,9 @@ func ProbabilisticPrimeTest(n int) bool {
 }
 
 func GeneratePrime(bitsize int) *bigInt { return nil }
+
+func _() {
+	// LSB refers to the least significant 64 bits, an element of data.
+	// if LSB is 1, then it is prime
+	// if LSB is 0, then it is composite
+}
