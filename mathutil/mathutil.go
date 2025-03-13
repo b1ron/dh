@@ -5,6 +5,8 @@ import (
 	"math/rand"
 )
 
+const maxUint32 = uint32(2<<31 - 1) // 4294967295
+
 const bitsize = 2048
 const numInts = bitsize / 32
 
