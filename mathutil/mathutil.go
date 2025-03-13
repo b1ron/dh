@@ -6,10 +6,11 @@ import (
 )
 
 const bitsize = 2048
+const bitsN = bitsize / 64
 
 // bigInt is a big integer type.
 type bigInt struct {
-	data [bitsize]uint64
+	data [bitsN]uint64
 }
 
 // Pow computes x^y using modular exponentiation.
