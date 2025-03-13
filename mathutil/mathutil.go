@@ -43,8 +43,13 @@ func (b *bigInt) Pow(y *bigInt, mod uint32) *bigInt {
 					res = (res * x) % mod
 				}
 			}
+			if x*x > maxUint32 {
+				// TODO store in upconvert somehow
+			}
+			y.data[i] /= uint32(2)
 		}
 	}
+	// TODO cast upconvert to bigInt
 	_ = upconvert
 	return nil
 }
