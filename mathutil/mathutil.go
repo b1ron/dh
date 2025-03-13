@@ -34,12 +34,12 @@ func (b *bigInt) Pow(y *bigInt, mod uint32) uint32 {
 	var res uint32 = 1
 	for i, x := range b.data {
 		x = x % mod
-		for y.data[i] > uint32(0) {
+		for y.data[i] > 0 {
 			if y.data[i]%2 == 1 {
 				res = (res * x) % mod
 			}
 			x = (x * x) % mod
-			y.data[i] /= uint32(2)
+			y.data[i] /= 2
 		}
 	}
 	return res
