@@ -5,9 +5,6 @@ import (
 	"math/rand"
 )
 
-const maxUint32 = 1<<32 - 1
-const maxUint64 = 1<<64 - 1
-
 const bitsize = 2048
 const numInts = bitsize / 32
 
@@ -32,28 +29,17 @@ func Pow(x, y, mod int) int {
 
 // Pow computes x^y using modular exponentiation on a *bigInt.
 func (b *bigInt) Pow(y *bigInt, mod uint32) uint32 {
-	upconvA := [numInts]uint64{}
-	upconvB := [numInts]uint64{}
 	var res uint32 = 1
 	for i, x := range b.data {
 		x = x % mod
 		for y.data[i] > uint32(0) {
 			if y.data[i]%2 == 1 {
-				if res*x > maxUint32 {
-					upconvA[i] = uint64(res*x) % uint64(mod)
-				} else {
-					res = (res * x) % mod
-				}
+				res = (res * x) % mod
 			}
-			if x*x > maxUint32 {
-				upconvB[i] = uint64(x*x) % uint64(mod)
-			}
+			x = (x * x) % mod
 			y.data[i] /= uint32(2)
 		}
 	}
-	// TODO cast upconvert to bigInt
-	_ = upconvA
-	_ = upconvB
 	return res
 }
 
