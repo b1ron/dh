@@ -32,8 +32,24 @@ func TestProbabilisticPrimeTest(t *testing.T) {
 	}
 }
 
-func TestBigInt(t *testing.T) {
-	i := bigInt{}
-	i.data = [numInts]uint32{}
-	t.Log(i.data)
+func TestBigIntPow(t *testing.T) {
+	maxInt := bigInt{}
+	maxInt.data = [numInts]uint32{}
+
+	// makes a bigInt of size 2^2048
+	for i := range numInts {
+		maxInt.data[i] = maxUint32
+	}
+
+	// test 2^2048 % (2^2048 - 1) = 1
+	y := bigInt{}
+	y.data = [numInts]uint32{}
+	for i := range numInts {
+		y.data[i] = maxUint32
+	}
+
+	got := maxInt.Pow(&y, maxUint32-1)
+	if got != 1 {
+		t.Errorf("bigInt.Pow(%d, %d) = %d, want %d", maxInt, maxUint32-1, got, 1)
+	}
 }
