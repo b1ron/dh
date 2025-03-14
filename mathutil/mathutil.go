@@ -15,6 +15,21 @@ type bigInt struct {
 	data [numInts]uint32
 }
 
+func (b *bigInt) String() string {
+	return ""
+}
+
+// Add adds two *bigInt a and c together using bitwise addition.
+// It stores the result in a larger type to prevent overflow.
+func (b *bigInt) Add(a, c *bigInt) [numInts]uint64 {
+	var res = [numInts]uint64{}
+	for i, x := range a.data {
+		y := c.data[i]
+		res[i] = add(x, y)
+	}
+	return res
+}
+
 // Pow computes x^y using modular exponentiation.
 func Pow(x, y, mod int) int {
 	res := 1
@@ -98,6 +113,17 @@ func ProbabilisticPrimeTest(n int) bool {
 }
 
 func GeneratePrime(bitsize int) *bigInt { return nil }
+
+func add(a, b uint32) uint64 {
+	x := uint64(a)
+	y := uint64(b)
+	for y > 0 {
+		carry := x & y
+		x = x ^ y
+		y = carry << 1
+	}
+	return x
+}
 
 func _() {
 	// LSB refers to the least significant 32 bits, an element of data.
