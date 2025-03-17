@@ -3,7 +3,6 @@ package mathutil
 
 import (
 	"math/rand"
-	"slices"
 )
 
 const maxUint32 = uint32(2<<31 - 1) // 4294967295
@@ -16,29 +15,9 @@ type bigInt struct {
 	data [numInts]uint32
 }
 
-// FIXME this is adding too much to the result
 func (b *bigInt) String() string {
-	res := []byte{}
-	carry := 0
-	total := 1
-	j := len(b.data) - 1
-	for i := range b.data[:len(b.data)] {
-		x := b.data[i]
-		y := b.data[j]
-		for x > 0 || y > 0 {
-			total = int(x%10) + int(y%10) + carry
-			res = append(res, byte(total%10)+'0')
-			carry = total / 10
-			x /= 10
-			y /= 10
-		}
-		j--
-		if i > j {
-			break
-		}
-	}
-	slices.Reverse(res)
-	return string(res)
+	// TODO use radix method
+	return ""
 }
 
 // Add adds two *bigInt a and c together using bitwise addition.

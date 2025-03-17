@@ -87,9 +87,8 @@ func TestAdd(t *testing.T) {
 
 	z := bigInt{}
 	z.data = [numInts]uint32{}
-	z.data[0] = maxUint32
-	z.data[1] = maxUint32
-	z.data[2] = maxUint32
+	z.data[0] = 10
+	z.data[1] = 20
 	fmt.Println(z.String())
 	if got := b.Add(&x, &y); got != want {
 		t.Errorf("bigInt.Add(%d, %d) = %d, want %d", x, y, got, want)
