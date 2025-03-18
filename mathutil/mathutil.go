@@ -121,8 +121,6 @@ func ProbabilisticPrimeTest(n int) bool {
 // This is the meat of how we compute an arbitrarily long prime number, given a bitsize.
 // It uses an entropy source to generate a random number for each chunk.
 // It uses the Miller-Rabin primality test to check if the number is prime.
-// Should it assume that because each chunk is prime, the whole number is prime? Maybe.
-// It depends on the implementation and format of the number.
 func GeneratePrime(bitsize int) *bigInt { return nil }
 
 func _(a, b uint32) uint64 {
