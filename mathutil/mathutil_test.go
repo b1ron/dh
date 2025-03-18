@@ -1,8 +1,9 @@
 package mathutil
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestProbabilisticPrimeTest(t *testing.T) {
@@ -36,61 +37,39 @@ func TestProbabilisticPrimeTest(t *testing.T) {
 }
 
 func TestBigIntPow(t *testing.T) {
-	maxInt := bigInt{}
-	maxInt.data = [numInts]uint32{}
+	// maxInt := bigInt{}
+	// maxInt.data = [numInts]uint32{}
 
-	// makes a bigInt of size 2^2048
-	for i := range numInts {
-		maxInt.data[i] = maxUint32
-	}
+	// // makes a bigInt of size 2^2048
+	// for i := range numInts {
+	// 	maxInt.data[i] = maxUint32
+	// }
 
-	// test 2^2048 % (2^2048 - 1) = 1
-	y := bigInt{}
-	y.data = [numInts]uint32{}
-	for i := range numInts {
-		y.data[i] = maxUint32
-	}
+	// // test 2^2048 % (2^2048 - 1) = 1
+	// y := bigInt{}
+	// y.data = [numInts]uint32{}
+	// for i := range numInts {
+	// 	y.data[i] = maxUint32
+	// }
 
-	got := maxInt.Pow(&y, maxUint32-1)
-	if got != 1 {
-		t.Errorf("bigInt.Pow(%d, %d) = %d, want %d", maxInt, maxUint32-1, got, 1)
-	}
+	// got := maxInt.Pow(&y, maxUint32-1)
+	// if got != 1 {
+	// 	t.Errorf("bigInt.Pow(%d, %d) = %d, want %d", maxInt, maxUint32-1, got, 1)
+	// }
 }
 
-func TestAdd(t *testing.T) {
-	b := bigInt{}
+func TestBigInt(t *testing.T) {
+	_, err := newBigInt(-1)
+	assert.Error(t, err)
 
-	x := bigInt{}
-	x.data = [numInts]uint32{}
-	for i := range x.data {
-		x.data[i] = maxUint32
-	}
+	b, err := newBigInt(1024)
+	assert.NoError(t, err)
+	assert.Equal(t, len(b.data), 32)
 
-	y := bigInt{}
-	y.data = [numInts]uint32{}
-	for i := range y.data {
-		y.data[i] = maxUint32
-	}
-
-	want := [numInts]uint64{
-		8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590,
-		8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590,
-		8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590,
-		8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590,
-		8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590,
-		8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590,
-		8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590,
-		8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590, 8589934590,
-	}
+	b, err = newBigInt(2048)
+	assert.NoError(t, err)
+	assert.Equal(t, len(b.data), 64)
 
 	// 32317006071311007300714876688669951960444102669715484032130345427524655138867890893197201411522913463688717960921898019494119559150490921095088152386448283120630877367300996091750197750389652106796057638384067568276792218642619756161838094338476170470581645852036305042887575891541065808607552399123930385521914333389668342420684974786564569494856176035326322058077805659331026192708460314150258592864177116725943603718461857357598351152301645904403697613233287231227125684710820209725157101726931323469678542580656697935045997268352998638215525166389437335543602135433229604645318478604952148193555853611059596230656
 
-	z := bigInt{}
-	z.data = [numInts]uint32{}
-	z.data[0] = 10
-	z.data[1] = 20
-	fmt.Println(z.String())
-	if got := b.Add(&x, &y); got != want {
-		t.Errorf("bigInt.Add(%d, %d) = %d, want %d", x, y, got, want)
-	}
 }

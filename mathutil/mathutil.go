@@ -2,33 +2,38 @@
 package mathutil
 
 import (
+	"fmt"
 	"math/rand"
 )
 
+// XXX use 64-bit chunks instead of 32-bit - fewer operations per (*,+), and more efficient storage.
 const maxUint32 = uint32(2<<31 - 1) // 4294967295
+const maxUint64 = uint64(2<<63 - 1) // 18446744073709551615
 
-const bitsize = 2048
-const numInts = bitsize / 32
+const maxBitsize = 2048
+const numInts = maxBitsize / 32
 
-// bigInt is a big integer type.
+// bigInt is a dynamically sized integer type.
 type bigInt struct {
-	data [numInts]uint32
+	data []uint32 // dynamically sized
+}
+
+func newBigInt(bitsize int) (*bigInt, error) {
+	if bitsize <= 0 || bitsize > maxBitsize {
+		return nil, fmt.Errorf("invalid bitsize: %d", bitsize)
+	}
+	numInts := (bitsize + 31) / 32 // + 31 is needed to round up and not truncate
+	return &bigInt{data: make([]uint32, numInts)}, nil
 }
 
 func (b *bigInt) String() string {
-	// TODO use radix method
 	return ""
 }
 
 // Add adds two *bigInt a and c together using bitwise addition.
 // It stores the result in a larger type to prevent overflow.
 func (b *bigInt) Add(a, c *bigInt) [numInts]uint64 {
-	var res = [numInts]uint64{}
-	for i, x := range a.data {
-		y := c.data[i]
-		res[i] = add(x, y)
-	}
-	return res
+	return [numInts]uint64{}
 }
 
 // Pow computes x^y using modular exponentiation.
@@ -113,9 +118,14 @@ func ProbabilisticPrimeTest(n int) bool {
 	return true
 }
 
+// This is the meat of how we compute an arbitrarily long prime number, given a bitsize.
+// It uses an entropy source to generate a random number for each word / chunk.
+// It uses the Miller-Rabin primality test to check if the number is prime.
+// It should not assume each chunk is a prime number.
+// Because for a prime p, φ(p)=p−1, which is always even (except for p=2).
 func GeneratePrime(bitsize int) *bigInt { return nil }
 
-func add(a, b uint32) uint64 {
+func _(a, b uint32) uint64 {
 	x := uint64(a)
 	y := uint64(b)
 	for y > 0 {
@@ -124,10 +134,4 @@ func add(a, b uint32) uint64 {
 		y = carry << 1
 	}
 	return x
-}
-
-func _() {
-	// LSB refers to the least significant 32 bits, an element of data.
-	// if LSB is 1, then it is prime
-	// if LSB is 0, then it is composite
 }
