@@ -20,7 +20,7 @@ type bigInt struct {
 
 func newBigInt(bitsize int) (*bigInt, error) {
 	if bitsize <= 0 || bitsize > maxBitsize {
-		return nil, fmt.Errorf("invalid bitsize: %d", bitsize)
+		return nil, fmt.Errorf("bitsize is out of range: %d", bitsize)
 	}
 	numInts := (bitsize + 31) / 32 // + 31 is needed to round up and not truncate
 	return &bigInt{data: make([]uint32, numInts)}, nil
