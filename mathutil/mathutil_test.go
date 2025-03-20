@@ -54,14 +54,20 @@ func TestBigInt(t *testing.T) {
 	assert.Equal(t, len(b.data), 64)
 
 	split := func(s string, n int) []string {
-		chunks := []string{}
+		chunks := make([]string, 0, n)
 		chunkSize := len(s) / n
-		for i := 0; i < len(s); i += chunkSize {
-			if i+chunkSize > len(s) {
-				chunks = append(chunks, s[i:])
-				break
+		remainder := len(s) % n
+
+		start := 0
+		for i := range n {
+			extra := 0
+			if i < remainder {
+				// need to distribute the extra characters
+				extra = 1
 			}
-			chunks = append(chunks, s[i:i+chunkSize])
+			end := start + chunkSize + extra
+			chunks = append(chunks, s[start:end])
+			start = end
 		}
 		return chunks
 	}
