@@ -26,6 +26,8 @@ func newBigInt(bitsize int) (*bigInt, error) {
 	return &bigInt{data: make([]uint32, numInts)}, nil
 }
 
+// TODO: implement Stringer interface
+// String returns the string representation of the bigInt in base 10.
 func (b *bigInt) String() string {
 	return ""
 }
@@ -73,6 +75,7 @@ func GCD(a, b int) int {
 	return GCD(b%a, a)
 }
 
+// TODO: implement a bigInt version of this function
 // ProbabilisticPrimeTest uses the Miller–Rabin algorithm to test if n is prime.
 // https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
 // It runs in polynomial time.
