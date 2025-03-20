@@ -50,7 +50,7 @@ func TestBigInt(t *testing.T) {
 	// 2048 * log_{10}(2) = e * log_{10}(10)
 	// e = 2048 * log_{10}(2)
 	// e = 2048 * log_{10}(2) = 2048 * 0.3010 = 616.509
-	// so 2^2048 has 617 digits, or 64 32-bit integers
+	// so 2^2048 has 617 digits, and requires 64 32-bit integers
 	assert.Equal(t, len(b.data), 64)
 
 	split := func(s string, n int) []string {
@@ -62,7 +62,7 @@ func TestBigInt(t *testing.T) {
 		for i := range n {
 			extra := 0
 			if i < remainder {
-				// need to distribute the extra characters
+				// need to distribute the extra character
 				extra = 1
 			}
 			end := start + chunkSize + extra
