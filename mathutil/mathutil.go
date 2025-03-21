@@ -4,6 +4,7 @@ package mathutil
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 // XXX use 64-bit chunks instead of 32-bit - fewer operations per (*,+), and more efficient storage.
@@ -15,7 +16,8 @@ const numInts = maxBitsize / 32
 
 // bigInt is a dynamically sized integer type.
 type bigInt struct {
-	data []uint32 // dynamically sized
+	bitsize int
+	data    []uint32
 }
 
 func newBigInt(bitsize int) (*bigInt, error) {
@@ -23,7 +25,7 @@ func newBigInt(bitsize int) (*bigInt, error) {
 		return nil, fmt.Errorf("bitsize is out of range: %d", bitsize)
 	}
 	numInts := (bitsize + 31) / 32 // + 31 is needed to round up and not truncate
-	return &bigInt{data: make([]uint32, numInts)}, nil
+	return &bigInt{bitsize: bitsize, data: make([]uint32, numInts)}, nil
 }
 
 // TODO: implement Stringer interface
@@ -121,10 +123,34 @@ func ProbabilisticPrimeTest(n int) bool {
 	return true
 }
 
-// This is the meat of how we compute an arbitrarily long prime number, given a bitsize.
+func (b *bigInt) ProbabilisticPrimeTest() bool {
+
+	return false
+}
+
+// This is the meat of how we compute an arbitrarily long prime number, constrained by the bitsize.
 // It uses an entropy source to generate a random number for each chunk.
 // It uses the Miller-Rabin primality test to check if the number is prime.
-func GeneratePrime(bitsize int) *bigInt { return nil }
+func (b *bigInt) GeneratePrime() {
+	// generate a random number for each chunk
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	for i := range b.data {
+		b.data[i] = r.Uint32()
+		// step 1: ensure the LSD is odd
+		if i == 0 && b.data[i]%2 == 0 {
+			b.data[i]++
+		}
+		// step 2: perform small prime trial division
+		for _, p := range smallPrimes {
+			if b.data[i]%p == 0 {
+				b.data[i] = r.Uint32()
+			}
+		}
+		// WIP
+		// step 3: perform the Miller-Rabin primality test
+	}
+
+}
 
 func _(a, b uint32) uint64 {
 	x := uint64(a)
